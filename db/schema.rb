@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_22_145205) do
+ActiveRecord::Schema.define(version: 2019_10_22_164211) do
 
   create_table "arrests", force: :cascade do |t|
     t.string "day_of_week"
     t.string "description"
     t.integer "crime_id"
     t.integer "player_id"
+    t.string "date"
   end
 
   create_table "crimes", force: :cascade do |t|
@@ -24,7 +25,8 @@ ActiveRecord::Schema.define(version: 2019_10_22_145205) do
   end
 
   create_table "players", force: :cascade do |t|
-    t.string "postion"
+    t.string "position"
+    t.string "name"
   end
 
 end

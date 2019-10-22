@@ -1,4 +1,4 @@
-class Arrest < ActiveRecord::Base[5.2]
+class Arrest < ActiveRecord::Base
     belongs_to :crime
     belongs_to :player
 
