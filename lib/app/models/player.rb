@@ -18,4 +18,7 @@ class Player < ActiveRecord::Base
         self.arrests.max { |a, b| a.date.to_datetime <=> b.date.to_datetime }
     end
     
+    def pardon
+        most_recent_arrest.destroy
+    end
 end
