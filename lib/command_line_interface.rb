@@ -30,29 +30,30 @@ def which_day_of_the_week
     puts "\nMost NFL players seem to commit #{crime_type.category} crimes on #{crime_type.occurs_most_often_on_day}."
 end
 
-def view_player_arrests
+def view_player_arrests(player)
     n = 0
-        puts "Which player's arrests would you like to view?"
-        player = Player.find_by(name: get_input(gets.chomp))
+    alphabet = [*'A'..'Z']
+        # puts "Which player's arrests would you like to view?"
+        player = Player.find_by(name: player)
         #J'Marcus Webb doesn't work
         puts "\nHere Are #{player.name}'s Arrests:"
         # puts "(Enter the arrest no. at any time to Google it. Otherwise, hit 'c' to continue!)\n\n"
-        player.arrests.each do |i|
-            n+=1
-            puts "#{n}.Arrested for #{i.crime.category} on #{i.date}"
+        player.arrests.each do |arr|
+            puts "#{alphabet[n]}.Arrested for #{arr.crime.category} on #{arr.date}"
+            n += 1
         end
-        menu = true
-        input = gets.chomp
-        while menu
-            player.arrests.each_with_index do |player, index|
-                if input == index + 1
-                     player.arrests[index].google_it
-                end
-            end
-            if input == "esc"
-                break
-            end
-        end
+        # menu = true
+        # input = gets.chomp
+        # while menu
+        #     player.arrests.each_with_index do |player, index|
+        #         if input == index + 1
+        #              player.arrests[index].google_it
+        #         end
+        #     end
+        #     if input == "esc"
+        #         break
+        #     end
+        # end
 
     end
 
@@ -66,5 +67,10 @@ def view_player_arrests
         puts "Bears and Falcons players guilty of committing crimes:\n\n"
         puts Player.all.map{|p| p.name}
         #substitute Player.names later
-        puts "Enter a player name to view arrests:"
+        puts "Enter a player name to view arrests or press '2' to view all crimes:"
+    end
+
+    def menu_for_player(player)
+        puts "Please select one of the following:"
+        puts ["(P)ardon", "(S)nitch", "(N)ew Dad"]
     end

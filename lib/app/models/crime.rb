@@ -23,10 +23,6 @@ class Crime < ActiveRecord::Base
         self.all.map{|c| c.category}
     end
 
-    # def self.ten_most_recent_crimes
-    #     arrests = self.all.map{|a| a.arrests}
-    #     arrests.map{|a| a.date = a.date.to_datetime}
-    # end
     def self.crime_types
         self.all.map{|c| c.category}
     end
