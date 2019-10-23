@@ -11,4 +11,12 @@ class Equipment < ActiveRecord::Base
     Equipment.delete_by(name: name)
   end
 
+  def self.display_all_names
+    self.all.map { |equipment| equipment.name }
+  end
+
+  def self.find_by_name(name)
+    self.find_by name: name
+  end
+
 end
