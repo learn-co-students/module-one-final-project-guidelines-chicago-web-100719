@@ -17,6 +17,10 @@ def get_input(input)
     end
 end
 
+def find_player(player)
+    Player.find_by(name: player)
+end
+
 def most_common_crimes
     puts "Please enter a day of the week:"
     day = get_input(gets.chomp)
@@ -33,28 +37,12 @@ end
 def view_player_arrests(player)
     n = 0
     alphabet = [*'A'..'Z']
-        # puts "Which player's arrests would you like to view?"
-        player = Player.find_by(name: player)
         #J'Marcus Webb doesn't work
         puts "\nHere Are #{player.name}'s Arrests:"
-        # puts "(Enter the arrest no. at any time to Google it. Otherwise, hit 'c' to continue!)\n\n"
         player.arrests.each do |arr|
             puts "#{alphabet[n]}.Arrested for #{arr.crime.category} on #{arr.date}"
             n += 1
         end
-        # menu = true
-        # input = gets.chomp
-        # while menu
-        #     player.arrests.each_with_index do |player, index|
-        #         if input == index + 1
-        #              player.arrests[index].google_it
-        #         end
-        #     end
-        #     if input == "esc"
-        #         break
-        #     end
-        # end
-
     end
 
     def players_or_crimes
@@ -70,7 +58,7 @@ def view_player_arrests(player)
         puts "Enter a player name to view arrests or press '2' to view all crimes:"
     end
 
-    def menu_for_player(player)
+    def menu_for_player
         puts "Please select one of the following:"
         puts ["(P)ardon", "(S)nitch", "(N)ew Dad"]
     end

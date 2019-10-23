@@ -1,6 +1,5 @@
 require_relative '../config/environment.rb'
 welcome
-puts Arrest.ten_most_recent_arrests
 run = true
 
 while run
@@ -9,9 +8,18 @@ while run
     case input
     when 1
         players_option
-        player = get_input(gets.chomp)
+        player = find_player(get_input(gets.chomp))
         view_player_arrests(player)
-        menu_for_player(player)
+        menu_for_player
+        select = get_input(gets.chomp)
+        case select
+        when "P" || "Pardon"
+            updated_player = player.pardon
+            view_player_arrests(updated_player)
+        end
+
+
+
     when 2
         puts "Crime categories included in the NFL crime database:\n\n"
         puts Crime.crime_types

@@ -18,10 +18,10 @@ class Player < ActiveRecord::Base
     end
     
     def pardon
-        most_recent_arrest.destroy
+        most_recent_arrest.delete
         # must close pry session before object deleted from arrests
         if self.arrests.count < 1
-            self.destroy
+            self.delete
         end
     end
     def self.repeat_offenders
