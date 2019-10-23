@@ -9,5 +9,8 @@ class MuscleGroup < ActiveRecord::Base
   def delete_muscle_group(name)
     MuscleGroup.delete_by(name: name)
   end
-  
+def self.display_by_name
+  self.all.map { |muscle_group| muscle_group.name }
+end
+
 end
