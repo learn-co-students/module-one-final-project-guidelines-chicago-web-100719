@@ -10,7 +10,7 @@ class Player < ActiveRecord::Base
             else return_hash[arrest.crime.category] = 1
             end
         end
-        puts return_hash
+        return_hash.each { |key, value| puts "#{key}... #{value} time(s)"}
         # returns a hash of crime keys with value of the frequency of each crime
     end
 
@@ -20,5 +20,29 @@ class Player < ActiveRecord::Base
     
     def pardon
         most_recent_arrest.destroy
+        # must close pry session before object deleted from arrests
+        if self.arrests.count < 1
+            self.destroy
+        end
     end
+
+    def self.repeat_offenders
+        self.select { |player| player.arrests.count > 1 }
+        # returns array of player objects
+    end
+
+    def snitch(day_of_week, date, description, crime)
+        Arrest.create({
+            day_of_week: day_of_week,
+            date: date,
+            description: description,
+            crime_id: Crime.find_or_create_by(category: crime).id,
+            player_id: self.id
+        })
+    end
+
+    def new_dad
+        self.update(name: self.name + ' Sr')
+    end
+
 end
