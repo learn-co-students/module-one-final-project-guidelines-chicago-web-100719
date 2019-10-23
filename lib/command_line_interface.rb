@@ -1,9 +1,15 @@
 require "tty-prompt"
+require "tty-font"
 prompt = TTY::Prompt.new
 
 def welcome
   puts "\e[H\e[2J"
-  puts "Welcome to the PUMP YOU AHP app!"
+  header
+end
+
+def header
+  font = TTY::Font.new(:doom)
+  puts font.write("PUMP  YOU  UP")
 end
 
 def main_menu
@@ -19,9 +25,11 @@ def main_menu
 
   elsif main_menu_return == 3
     puts "\e[H\e[2J"
+    header
     muscle_group_menu
   elsif main_menu_return == 4
     puts "\e[H\e[2J"
+    header
     equipment_menu
   end
 end
