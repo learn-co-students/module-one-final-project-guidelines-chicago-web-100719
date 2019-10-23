@@ -19,6 +19,9 @@ def show_list(choice)
         found_player.crimes_and_frequency
     elsif choice == 'crime'
         Crime.all.each { |crime| puts crime.category }
+        chosen_crime = pick_crime
+        found_crime = Crime.find_by(category: chosen_crime)
+        
     else
         puts "let's try this again"
         get_player_or_crime
@@ -26,6 +29,11 @@ def show_list(choice)
 end
 
 def pick_player
-    puts "Go ahead. Type their name and see what they've done: "
+    puts "Go ahead. Type their name and see what they've done:"
+    gets.chomp
+end
+
+def pick_crime
+    puts "Type the crime and see who's committed them:"
     gets.chomp
 end

@@ -45,4 +45,15 @@ class Player < ActiveRecord::Base
         self.update(name: self.name + ' Sr')
     end
 
+    def self.name_table
+        player_names = self.all.collect { |p| p.name }
+        player_pairs = player_names.each_slice(3).to_a
+        if player_pairs.last.count < 3
+            player_pairs.last << "" until player_pairs.last.count == 3
+        end
+
+        table = TTY::Table.new player_pairs
+        puts table
+    end
+
 end
