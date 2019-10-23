@@ -6,11 +6,6 @@ require 'io/console'
 PROMPT = TTY::Prompt.new
 CLEAR = "\e[H\e[2J"
 
-# def welcome
-#   CLEAR
-#   header
-# end
-
 def header
   font = TTY::Font.new(:doom)
   pastel = Pastel.new
@@ -54,14 +49,14 @@ end
 
 def muscle_group_menu
     choices = MuscleGroup.display_all_names
-    muscle_group_menu_choice = PROMPT.select("Choose a muscle group", choices)
+    muscle_group_menu_choice = PROMPT.select("Choose a muscle group", choices, per_page: 7)
     Exercise.find_by_muscle_group(muscle_group_menu_choice)
     return_to_main_menu
 end
 
 def equipment_menu
   choices = Equipment.display_all_names
-  equipment_menu_choice = PROMPT.select("Choose a piece of equipment", choices)
+  equipment_menu_choice = PROMPT.select("Choose a piece of equipment", choices, per_page: 15)
   Exercise.find_by_equipment(equipment_menu_choice)
   return_to_main_menu
 end
