@@ -1,6 +1,7 @@
 class Player < ActiveRecord::Base
     has_many :arrests
     has_many :crimes, through: :arrests
+    after_destroy { |player| player.arrests }
 
     def crimes_and_frequency
         return_hash = {}
@@ -19,6 +20,8 @@ class Player < ActiveRecord::Base
     end
     
     def pardon
+        crime_to_delete = Crime.all.select { |c| c.arrests.count == 1 && c.arrests.include?(most_recent_arrest) }
+        Crime.all.delete(crime_to_delete)
         most_recent_arrest.destroy
         # must close pry session before object deleted from arrests
         if self.arrests.count < 1
@@ -47,13 +50,17 @@ class Player < ActiveRecord::Base
 
     def self.name_table
         player_names = self.all.collect { |p| p.name }
-        player_pairs = player_names.each_slice(3).to_a
-        if player_pairs.last.count < 3
-            player_pairs.last << "" until player_pairs.last.count == 3
+        player_pairs = player_names.each_slice(4).to_a
+        if player_pairs.last.count < 4
+            player_pairs.last << "" until player_pairs.last.count == 4
         end
 
         table = TTY::Table.new player_pairs
-        puts table
+        puts table.render(:unicode)
+    end
+
+    def pardon_all
+        self.arrests.each { |arrest| arrest.destroy }
     end
 
 end
