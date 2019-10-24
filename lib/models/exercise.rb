@@ -2,16 +2,16 @@ class Exercise < ActiveRecord::Base
   belongs_to :equipment
   belongs_to :muscle_group
 
-  def add_exercise(attributes)
-    Exercise.create(attributes)
+  def self.add_exercise(attributes)
+    self.create(attributes)
   end
 
-  def delete_exercise(name)
-    Exercise.destroy_by(name: name)
+  def self.delete_exercise(name)
+    self.find_by_name(name).destroy
   end
 
   def self.find_by_name(name)
-    self.find_by name: name
+    self.find_by(name: name)
   end
 
   def self.display_all_names
@@ -33,6 +33,13 @@ class Exercise < ActiveRecord::Base
   def self.find_by_equipment(equipment_name)
     equipment = Equipment.find_by_name(equipment_name)
     exercises = self.all.select { |exercise| exercise.equipment_id == equipment.id }
+    exercises.map { |exercise| exercise.display_name_with_description }
+  end
+
+  def self.find_by_muscle_group_and_equipment(muscle_group_name, equipment_name)
+    muscle_group = MuscleGroup.find_by_name(muscle_group_name)
+    equipment = Equipment.find_by_name(equipment_name)
+    exercises = self.all.select { |exercise| exercise.muscle_group_id == muscle_group.id && exercise.equipment_id == equipment.id }
     exercises.map { |exercise| exercise.display_name_with_description }
   end
 
