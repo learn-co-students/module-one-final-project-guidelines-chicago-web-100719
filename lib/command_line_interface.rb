@@ -73,9 +73,19 @@ end
 def choose_from_exercise_list
   choices = Exercise.display_all_names
   exercise_list_choice = PROMPT.select("Choose an Exercise", choices, per_page: 20)
-  Exercise.find_by_exercise_name(exercise_list_choice)
+  Exercise.find_and_display_by_name(exercise_list_choice)
   return_to_main_menu
 end
+
+def match_muscle_group_and_equipment
+    equipment_choices = Equipment.display_all_names
+    muscle_group_choices = MuscleGroup.display_all_names
+    equipment_list_choice = PROMPT.select("Choose an Equipment", equipment_choices, per_page: 20)
+    muscle_group_list_choice = PROMPT.select("Choose a Muscle Group", muscle_group_choices, per_page: 20)
+    Exercise.find_by_muscle_group_and_equipment(muscle_group_list_choice, equipment_list_choice)
+    return_to_main_menu
+  end
+
 
 def edit_menu
     edit_menu_return = PROMPT.select("What would you like to do?") do |menu|
