@@ -43,4 +43,12 @@ class Exercise < ActiveRecord::Base
     exercises.map { |exercise| exercise.display_name_with_description }
   end
 
+  def self.edit_by_name(name, new_name)
+    self.find_by_name(name).update(name: new_name)
+  end
+
+  def self.edit_by_description(name, new_description)
+    self.find_by_name(name).update(description: new_description)
+  end
+
 end
