@@ -46,10 +46,10 @@ def choose_exercise_menu
   puts CLEAR
   header
     choose_exercise_menu_choice = PROMPT.select("What would you like to do?") do |menu|
-    menu.choice 'View all exercises', 1
-    menu.choice 'Find exercise by Muscle Group and Equipment', 2
-    menu.choice 'Find All Exercises By Muscle Group', 3
-    menu.choice 'Find All Exercises By Equipment', 4
+    menu.choice 'View All Exercises', 1
+    menu.choice 'Find Exercise by Muscle Group and Equipment', 2
+    menu.choice 'Find All Exercises by Muscle Group', 3
+    menu.choice 'Find All Exercises by Equipment', 4
     menu.choice 'Return to Main Menu', 5
     end
   if choose_exercise_menu_choice == 1
