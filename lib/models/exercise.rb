@@ -24,6 +24,10 @@ class Exercise < ActiveRecord::Base
       puts "#{self.description}"
   end
 
+  def self.find_and_display_by_name(name)
+    self.find_by_name(name).display_name_with_description
+  end
+
   def self.find_by_muscle_group(muscle_group_name)
     muscle_group = MuscleGroup.find_by_name(muscle_group_name)
     exercises = self.all.select { |exercise| exercise.muscle_group_id == muscle_group.id }
