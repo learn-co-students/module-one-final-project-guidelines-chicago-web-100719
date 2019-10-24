@@ -18,24 +18,22 @@ class Exercise < ActiveRecord::Base
     self.all.map { |exercise| exercise.name }
   end
 
+  def display_name_with_description
+      puts "-----------------------------------"
+      puts "#{self.name}"
+      puts "#{self.description}"
+  end
+
   def self.find_by_muscle_group(muscle_group_name)
     muscle_group = MuscleGroup.find_by_name(muscle_group_name)
     exercises = self.all.select { |exercise| exercise.muscle_group_id == muscle_group.id }
-    exercises.map do |exercise|
-          puts "-----------------------------------"
-          puts "#{exercise.name}"
-          puts "#{exercise.description}"
-    end
+    exercises.map { |exercise| exercise.display_name_with_description }
   end
 
   def self.find_by_equipment(equipment_name)
     equipment = Equipment.find_by_name(equipment_name)
     exercises = self.all.select { |exercise| exercise.equipment_id == equipment.id }
-    exercises.map do |exercise|
-      puts "-----------------------------------"
-      puts "#{exercise.name}"
-      puts "#{exercise.description}"
-    end
+    exercises.map { |exercise| exercise.display_name_with_description }
   end
 
 end
