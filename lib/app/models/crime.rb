@@ -2,9 +2,6 @@ class Crime < ActiveRecord::Base
     has_many :arrests
     has_many :players, through: :arrests
 
-    def most_on_which_day
-        # returns the day of the week that this crime is most often committed
-    end
 
     def self.category_table
         crime_categories = self.all.collect { |c| c.category }
@@ -22,20 +19,7 @@ class Crime < ActiveRecord::Base
         self.players.each { |player| puts player.name }
         puts "\n"
     end
-
-    # def occurs_most_often_on_day
-    #     # arrests2 = self.arrests.map { |a| a.day_of_week }
-    #     # the_day = arrests2.max_by { |a| arrests2.count(a) }
-    #     # return the_day
-    #     # puts "\n"
-    #     # day_array = self.arrests.collect { |a| a.day_of_week }
-    #     # freq = day_array.inject(Hash.new(0)) { |h, v| h[v] += 1; h }
-    #     # day_array.max_by { |v| freq[v] }
-    #     # puts "\n"
-    # end
-
-    
-    
+        
     def self.crimes_by_day(day_of_week)
         arrests = Arrest.all.select{|a| a.day_of_week == day_of_week}
         arrests.map{|a| a.crime.category}

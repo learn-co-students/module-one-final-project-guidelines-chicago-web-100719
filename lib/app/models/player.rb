@@ -14,30 +14,32 @@ class Player < ActiveRecord::Base
         return_hash.each { |key, value| puts "#{key}... #{value} time(s)"}
         # returns a hash of crime keys with value of the frequency of each crime
     end
+    
     def most_recent_arrest
         self.arrests.max { |a, b| a.date.to_datetime <=> b.date.to_datetime }
     end
     
     def pardon
-        # crime_to_delete = Crime.all.select { |c| c.arrests.count == 1 && c.arrests.include?(most_recent_arrest) }
-        # Crime.all.delete(crime_to_delete)
+        crime_to_delete = Crime.all.select { |c| c.arrests.count == 1 && c.arrests.include?(most_recent_arrest) }
+        Crime.all.delete(crime_to_delete)
         self.arrests.delete(most_recent_arrest)
-        Crime.all.each do |c|
-            if c.arrests.count < 1
-                Crime.all.delete(c)
-            end
-        end
         # must close pry session before object deleted from arrests
         if self.arrests.count < 1
-            # self.destroy
             self.class.all.delete(self)
         end
+    end
+
+    def pardon_all
+        self.arrests.each { |arrest| self.arrests.delete(arrest) }
+        self.class.all.delete(self)
+        Crime.all.each {|c| Crime.all.delete(c) if c.arrests.count < 1 }
     end
 
     def self.repeat_offenders
         self.select { |player| player.arrests.count > 1 }
         # returns array of player objects
     end
+    
     def snitch(day_of_week, date, description, crime)
         Arrest.create({
             day_of_week: day_of_week,
@@ -47,6 +49,7 @@ class Player < ActiveRecord::Base
             player_id: self.id
         })
     end
+    
     def new_dad
         self.update(name: self.name + ' Sr')
     end
@@ -63,7 +66,7 @@ class Player < ActiveRecord::Base
     end
 
     def pardon_all
-        self.arrests.each { |arrest| arrest.destroy }
+        self.arrests.each { |arrest| self.arrests.delete(arrest) }
     end
 
 end

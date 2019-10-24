@@ -9,4 +9,11 @@ gem "activerecord", "~>5.2"
 gem "rest-client"
 gem "json"
 gem "tty"
+gem "tty-table"
+gem "tty-prompt"
+gem "colorize"
+gem "tty-box"
+
+
+
 
