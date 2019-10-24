@@ -33,7 +33,7 @@ class Player < ActiveRecord::Base
         self.select { |player| player.arrests.count > 1 }
         # returns array of player objects
     end
-
+    
     def snitch(day_of_week, date, description, crime)
         Arrest.create({
             day_of_week: day_of_week,
