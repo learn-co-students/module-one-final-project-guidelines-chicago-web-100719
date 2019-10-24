@@ -1,7 +1,7 @@
 require_relative '../config/environment.rb'
 
-seed_array = JSON.parse(RestClient.get('http://nflarrest.com/api/v1/team/arrests/CHI'))
-
+first_array = JSON.parse(RestClient.get('http://nflarrest.com/api/v1/team/arrests/CHI'))
+seed_array = first_array + JSON.parse(RestClient.get('http://nflarrest.com/api/v1/team/arrests/ATL'))
 seed_array.each do |arrest|
     Arrest.create({
         day_of_week: arrest['Day_of_Week'],

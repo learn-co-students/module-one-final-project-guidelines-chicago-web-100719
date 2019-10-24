@@ -8,4 +8,9 @@ gem "require_all"
 gem "activerecord", "~>5.2"
 gem "rest-client"
 gem "json"
+gem "tty"
+gem "tty-table"
+
+
+
 
