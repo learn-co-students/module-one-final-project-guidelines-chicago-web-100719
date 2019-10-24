@@ -125,14 +125,14 @@ def edit_name
   choices = Exercise.display_all_names
   edit_name_choice = PROMPT.select("Choose an exercise to edit", choices, per_page: 30)
   new_name = PROMPT.ask('What is the new name?')
-
+  Exercise.edit_by_name(edit_name_choice, new_name)
 end
 
 def edit_description
   choices = Exercise.display_all_names
   edit_description_choice = PROMPT.select("Choose an exercise to edit", choices, per_page: 30)
   new_description = PROMPT.ask('What is the new description?')
-
+  Exercise.edit_by_description(edit_description_choice, new_description)
 end
 
 def delete_exercise_menu
