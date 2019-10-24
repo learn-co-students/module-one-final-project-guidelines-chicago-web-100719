@@ -26,9 +26,7 @@ class Crime < ActiveRecord::Base
     def self.crime_types
         self.all.map{|c| c.category}
     end
-    def most_on_which_day
-        # returns the day of the week that this crime is most often committed
-    end
+    
 
     def self.category_table
         crime_categories = self.all.collect { |c| c.category }
@@ -46,14 +44,4 @@ class Crime < ActiveRecord::Base
         self.players.each { |player| puts player.name }
         puts "\n"
     end
-
-    def occurs_most_often_on_day
-        puts "\n"
-        arrests2 = self.arrests.map { |a| a.day_of_week }
-        puts arrests2.max_by { |a| arrests2.count(a) }
-        puts "\n"
-    end
-
-    
-    
 end

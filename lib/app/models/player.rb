@@ -20,19 +20,28 @@ class Player < ActiveRecord::Base
     end
     
     def pardon
-        crime_to_delete = Crime.all.select { |c| c.arrests.count == 1 && c.arrests.include?(most_recent_arrest) }
-        Crime.all.delete(crime_to_delete)
         self.arrests.delete(most_recent_arrest)
-        # must close pry session before object deleted from arrests
+        Crime.all.each do |c|
+            if c.arrests.count < 1
+                Crime.all.delete(c)
+            end
+        end
         if self.arrests.count < 1
             self.class.all.delete(self)
         end
+        self.arrests
     end
 
     def pardon_all
-        self.arrests.each { |arrest| self.arrests.delete(arrest) }
-        self.class.all.delete(self)
-        Crime.all.each {|c| Crime.all.delete(c) if c.arrests.count < 1 }
+        (self.arrests.count).times do
+            self.pardon
+        end
+        puts "hello"
+        self.delete
+        # if self.arrests.count < 1
+        #     self.class.all.delete(self)
+        #     binding.pry
+        # end
     end
 
 
@@ -50,7 +59,7 @@ class Player < ActiveRecord::Base
             player_id: self.id
         })
     end
-
+    
     def new_dad
         self.update(name: self.name + ' Sr')
     end
@@ -63,12 +72,11 @@ class Player < ActiveRecord::Base
         end
 
         table = TTY::Table.new player_pairs
-        puts table.render(:unicode)
+        puts table.render(:unicode, padding: [0.5, 1, 2, 1])
     end
 
     def pardon_all
         self.arrests.each { |arrest| self.arrests.delete(arrest) }
     end
-
 
 end
