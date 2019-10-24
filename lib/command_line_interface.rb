@@ -70,7 +70,7 @@ def edit_menu
   elsif edit_menu_return == 2
     puts CLEAR
     header
-    
+    edit_exercise_menu
   elsif edit_menu_return == 3
     puts CLEAR
     header
@@ -103,7 +103,36 @@ def add_new_exercise_menu
          6. Legs
          7. Shoulders', convert: :int)
     end
-    
+    Exercise.add_exercise(new_exercise)
+    puts "Exercise Added!"
+    return_to_main_menu
+end
+
+def edit_exercise_menu
+  edit_exercise_menu_choice = PROMPT.select("Choose an edit option") do |menu|
+    menu.choice 'Edit Name', 1
+    menu.choice 'Edit Description', 2
+  end
+  if edit_exercise_menu_choice == 1
+    edit_name
+  elsif edit_exercise_menu_choice == 2
+    edit_description
+  end
+end
+
+
+def edit_name
+  choices = Exercise.display_all_names
+  edit_name_choice = PROMPT.select("Choose an exercise to edit", choices, per_page: 30)
+  new_name = PROMPT.ask('What is the new name?')
+
+end
+
+def edit_description
+  choices = Exercise.display_all_names
+  edit_description_choice = PROMPT.select("Choose an exercise to edit", choices, per_page: 30)
+  new_description = PROMPT.ask('What is the new description?')
+
 end
 
 def delete_exercise_menu
