@@ -13,7 +13,6 @@ end
 
 def menu
     ["OPTIONS MENU:","1. List players", "2. View a player's arrests", "3. Pardon a player for a crime", "4. List crime categories", "5. Most common crimes by day", "6. List types of crimes", "7. Find out on which day of the week a given crime is most likely to occur","* Enter q/quit to exit the program at any time"]
-
 end
 
 def get_input(input)
@@ -34,11 +33,11 @@ def most_common_crimes
     puts Crime.most_common_crimes_by_day(day)
 end
 
-def which_day_of_the_week
-    puts "Please enter a category of crime: "
-    crime_type = Crime.find_by(category: get_input(gets.chomp))
-    puts "\nMost NFL players seem to commit #{crime_type.category} crimes on #{crime_type.occurs_most_often_on_day}."
-end
+# def which_day_of_the_week
+#     puts "Please enter a category of crime: "
+#     crime_type = Crime.find_by(category: get_input(gets.chomp))
+#     puts "\nMost NFL players seem to commit #{crime_type.category} crimes on #{crime_type.occurs_most_often_on_day}."
+# end
 
 def view_player_arrests(player)
     # until player do
