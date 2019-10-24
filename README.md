@@ -4,7 +4,7 @@ Pump You Up is a Ruby-based command line app designed primarily for [meatheads](
 
 ## Setup
 
-To run this project, install it locally by running the following commands in your terminal after cloning:
+After cloning this repository, run the following commands in your terminal:
 
 * \\bundle install\\
 * \\rake start\\
@@ -12,4 +12,12 @@ To run this project, install it locally by running the following commands in you
 
 ## Contributing Guide
 
+When contributing to this repository, please contact the owners of this repository via issue, e-mail or any other method to discuss the change you wish to make.
+
+## API Reference
+
+https://wger.de/en/software/api
+
 ## License
+
+This project is licensed under the MIT License.
