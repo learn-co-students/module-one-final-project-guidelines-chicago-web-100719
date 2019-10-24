@@ -7,13 +7,15 @@ task :console do
   Pry.start
 end
 
-# desc 'make a fresh database'
-# task :fresh do
-#   Rake::Task["db:reset"].invoke
-#   # Rake::Task["db:migrate"].invoke
-#   # Rake::Task["db:seed"].invoke
-# end
-
-# desc 'fresh database'
-# task reseed: [ 'db:drop', 'db:create', 'db:migrate', 'db:seed' ]
-
+desc 'migrates, seeds, and starts app'
+task :start_up do
+  if !Player.all
+    puts "Bundling..."
+    "bundle install"
+    puts "Migrating..."
+    Rake::Task['db:migrate'].invoke
+    puts "Seeding..."
+    Rake::Task['db:seed'].invoke
+  end
+  ruby "bin/run.rb"
+end
