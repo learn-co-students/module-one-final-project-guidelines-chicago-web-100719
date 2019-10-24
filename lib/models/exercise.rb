@@ -39,7 +39,7 @@ class Exercise < ActiveRecord::Base
   def self.find_by_muscle_group_and_equipment(muscle_group_name, equipment_name)
     muscle_group = MuscleGroup.find_by_name(muscle_group_name)
     equipment = Equipment.find_by_name(equipment_name)
-    exercises = self.all.select { |exercise| exercise.muscle_group_id == muscle_group.id && exercise.equipment_id == equipment.id }
+    exercises = self.all.select { |exercise| (exercise.muscle_group_id == muscle_group.id) && (exercise.equipment_id == equipment.id) }
     exercises.map { |exercise| exercise.display_name_with_description }
   end
 
