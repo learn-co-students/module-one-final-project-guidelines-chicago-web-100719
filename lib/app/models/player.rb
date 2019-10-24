@@ -19,12 +19,18 @@ class Player < ActiveRecord::Base
     end
     
     def pardon
-        crime_to_delete = Crime.all.select { |c| c.arrests.count == 1 && c.arrests.include?(most_recent_arrest) }
-        Crime.all.delete(crime_to_delete)
-        most_recent_arrest.destroy
+        # crime_to_delete = Crime.all.select { |c| c.arrests.count == 1 && c.arrests.include?(most_recent_arrest) }
+        # Crime.all.delete(crime_to_delete)
+        self.arrests.delete(most_recent_arrest)
+        Crime.all.each do |c|
+            if c.arrests.count < 1
+                Crime.all.delete(c)
+            end
+        end
         # must close pry session before object deleted from arrests
         if self.arrests.count < 1
-            self.destroy
+            # self.destroy
+            self.class.all.delete(self)
         end
     end
 

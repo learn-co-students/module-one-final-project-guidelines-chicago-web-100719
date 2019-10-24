@@ -1,4 +1,11 @@
 require 'pry'
+CLEAR = "\e[H\e[2J"
+PROMPT = TTY::Prompt.new
+
+
+def clear 
+    puts CLEAR
+end
 
 def welcome
     puts "Welcome to the Official NFL Player Arrest App!\n\n"
@@ -58,13 +65,14 @@ def take_player_input
 end
 
 def take_crime_input(arg)
-    # crime = nil
 
     crime = Crime.all.find { |c| c.category.downcase.titleize == get_input(arg) }
     # unless crime
     if crime
         return crime
     else 
+        clear
+        puts Crime.category_table
         puts "not on the list\ntry again:"
         take_crime_input(gets.chomp)
     end
@@ -94,14 +102,23 @@ end
         choice = get_input(gets.chomp)
         case choice
         when 'W'
+            clear
+            # puts crime_instance.category.downcase.titleize
+            puts crime_instance.category
+            puts "Who Dun It?"
             crime_instance.who_dun_it
         when 'D'
             # crime_instance.occurs_most_often_on_day
+            clear
+            # puts crime_instance.category.downcase.titleize
+            puts crime_instance.category
+            puts "Day Most Likely to Happen..."
             arrests2 = crime_instance.arrests.map { |a| a.day_of_week }
             puts "\n"
             puts arrests2.max_by { |a| arrests2.count(a) }
             puts "\n"
-        else               
+        else 
+            clear              
             puts "not an option"
             crime_choices
         end

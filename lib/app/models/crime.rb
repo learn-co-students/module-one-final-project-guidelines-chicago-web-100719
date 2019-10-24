@@ -23,16 +23,16 @@ class Crime < ActiveRecord::Base
         puts "\n"
     end
 
-    def occurs_most_often_on_day
-        # arrests2 = self.arrests.map { |a| a.day_of_week }
-        # the_day = arrests2.max_by { |a| arrests2.count(a) }
-        # return the_day
-        # puts "\n"
-        # day_array = self.arrests.collect { |a| a.day_of_week }
-        # freq = day_array.inject(Hash.new(0)) { |h, v| h[v] += 1; h }
-        # day_array.max_by { |v| freq[v] }
-        # puts "\n"
-    end
+    # def occurs_most_often_on_day
+    #     # arrests2 = self.arrests.map { |a| a.day_of_week }
+    #     # the_day = arrests2.max_by { |a| arrests2.count(a) }
+    #     # return the_day
+    #     # puts "\n"
+    #     # day_array = self.arrests.collect { |a| a.day_of_week }
+    #     # freq = day_array.inject(Hash.new(0)) { |h, v| h[v] += 1; h }
+    #     # day_array.max_by { |v| freq[v] }
+    #     # puts "\n"
+    # end
 
     
     

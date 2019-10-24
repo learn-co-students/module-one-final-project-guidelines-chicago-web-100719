@@ -1,10 +1,12 @@
 require_relative '../config/environment.rb'
+clear
 welcome
 run = true
 
 while run
     players_or_crimes
     input = get_input(gets.chomp)
+    clear
     case input
     when 1
         players_option
@@ -23,7 +25,10 @@ while run
         puts "Crime categories included in the NFL crime database:\n\n"
         puts Crime.category_table
         puts "choose crime:"
+        # crime_name = get_input(gets.chomp)
         crime = take_crime_input(gets.chomp)
+        clear
+        puts crime.category
         # crime_instance = Crime.find_by(category: crime)
         # crime_instance = Crime.all.find { |c| c.category.downcase.titleize == crime }
         crime_choices(crime)
@@ -42,6 +47,7 @@ while run
     puts "do you want to go again"
     run = false unless get_input(gets.strip) == "Yes"
 end
+clear
 
 
 
