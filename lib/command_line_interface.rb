@@ -31,9 +31,13 @@ def main_menu
     menu.choice 'Exit', 5
   end
   if main_menu_return == 1
-
+    puts CLEAR
+    header
+    choose_exercise_menu
   elsif main_menu_return == 2
-
+    puts CLEAR
+    header
+    edit_menu
   elsif main_menu_return == 3
     puts CLEAR
     header
@@ -46,6 +50,67 @@ def main_menu
     puts CLEAR
     exit
   end
+end
+
+def choose_exercise_menu
+
+
+end
+
+def edit_menu
+    edit_menu_return = PROMPT.select("What would you like to do?") do |menu|
+    menu.choice 'Add New Exercise', 1
+    menu.choice 'Edit Exercise', 2
+    menu.choice 'Delete Exercise', 3
+  end
+  if edit_menu_return == 1
+    puts CLEAR
+    header
+    add_new_exercise_menu
+  elsif edit_menu_return == 2
+    puts CLEAR
+    header
+    
+  elsif edit_menu_return == 3
+    puts CLEAR
+    header
+    delete_exercise_menu
+  end
+end
+
+
+def add_new_exercise_menu
+    new_exercise = PROMPT.collect do
+      key(:name).ask('Name?')
+      key(:description).ask('Description?')
+      key(:equipment_id).ask('Choose an equipment (type the number and return)
+          1. Barbell
+          2. Bench
+          3. Dumbbell
+          4. Gym Mat
+          5. Incline Bench
+          6. Kettlebell
+          7. none (bodyweight exercise)
+          8. Pull-up bar
+          9. Swiss Ball
+          10. SZ-bar', convert: :int)
+      key(:muscle_group_id).ask('Choose a muscle group (type the number and return)
+         1. Abs
+         2. Arms
+         3. Back
+         4. Calves
+         5. Chest
+         6. Legs
+         7. Shoulders', convert: :int)
+    end
+    
+end
+
+def delete_exercise_menu
+    choices = Exercise.display_all_names
+    delete_exercise_choice = PROMPT.select("Choose an exercise to delete", choices, per_page: 30)
+    Exercise.delete_exercise(delete_exercise_choice)
+    return_to_main_menu
 end
 
 def muscle_group_menu

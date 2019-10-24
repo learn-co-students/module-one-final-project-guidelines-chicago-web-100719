@@ -6,8 +6,9 @@ class Exercise < ActiveRecord::Base
     Exercise.create(attributes)
   end
 
-  def delete_exercise(name)
-    Exercise.destroy_by(name: name)
+  def self.delete_exercise(name)
+    exercise = self.find_by(name: name)
+    exercise.destroy
   end
 
   def self.find_by_name(name)
