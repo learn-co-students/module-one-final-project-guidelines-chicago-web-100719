@@ -5,11 +5,6 @@ def welcome
     puts "Welcome to the Official NFL Player Arrest App!\n\n"
 end
 
-def menu
-    ["OPTIONS MENU:","1. List players", "2. View a player's arrests", "3. Pardon a player for a crime", "4. List crime categories", "5. Most common crimes by day", "6. List types of crimes", "7. Find out on which day of the week a given crime is most likely to occur","* Enter q/quit to exit the program at any time"]
-
-end
-
 def get_input(input)
     if input.to_i == 0
         input = input.downcase.titleize
@@ -43,7 +38,7 @@ def view_player_arrests(player)
             puts "#{alphabet[n]}.Arrested for #{arr.crime.category} on #{arr.date}"
             n += 1
         end
-    end
+end
 
     def players_or_crimes
         puts table = "----------------------------------------------------"
