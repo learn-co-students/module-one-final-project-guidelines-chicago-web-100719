@@ -23,39 +23,69 @@ end
 def main_menu
     puts CLEAR
     header
-    main_menu_return = PROMPT.select("What would you like to do?") do |menu|
+    main_menu_choice = PROMPT.select("What would you like to do?") do |menu|
     menu.choice 'Choose Exercise', 1
     menu.choice 'Edit Exercises', 2
-    menu.choice 'Find All Exercises By Muscle Group', 3
-    menu.choice 'Find All Exercises By Equipment', 4
-    menu.choice 'Exit', 5
+    menu.choice 'Exit', 3
   end
-  if main_menu_return == 1
+  if main_menu_choice == 1
     puts CLEAR
     header
     choose_exercise_menu
-  elsif main_menu_return == 2
+  elsif main_menu_choice == 2
     puts CLEAR
     header
     edit_menu
-  elsif main_menu_return == 3
-    puts CLEAR
-    header
-    muscle_group_menu
-  elsif main_menu_return == 4
-    puts CLEAR
-    header
-    equipment_menu
-  elsif main_menu_return == 5
+  elsif main_menu_choice == 3
     puts CLEAR
     exit
   end
 end
 
 def choose_exercise_menu
-
-
+  puts CLEAR
+  header
+    choose_exercise_menu_choice = PROMPT.select("What would you like to do?") do |menu|
+    menu.choice 'View all exercises', 1
+    menu.choice 'Find exercise by Muscle Group and Equipment', 2
+    menu.choice 'Find All Exercises By Muscle Group', 3
+    menu.choice 'Find All Exercises By Equipment', 4
+    end
+  if choose_exercise_menu_choice == 1
+    puts CLEAR
+    header
+    choose_from_exercise_list
+  elsif choose_exercise_menu_choice == 2
+    puts CLEAR
+    header
+    match_muscle_group_and_equipment
+  elsif choose_exercise_menu_choice == 3
+    puts CLEAR
+    header
+    muscle_group_menu
+  elsif choose_exercise_menu_choice == 4
+    puts CLEAR
+    header
+    equipment_menu
+  end
 end
+
+def choose_from_exercise_list
+  choices = Exercise.display_all_names
+  exercise_list_choice = PROMPT.select("Choose an Exercise", choices, per_page: 20)
+  Exercise.find_and_display_by_name(exercise_list_choice)
+  return_to_main_menu
+end
+
+def match_muscle_group_and_equipment
+    equipment_choices = Equipment.display_all_names
+    muscle_group_choices = MuscleGroup.display_all_names
+    equipment_list_choice = PROMPT.select("Choose an Equipment", equipment_choices, per_page: 20)
+    muscle_group_list_choice = PROMPT.select("Choose a Muscle Group", muscle_group_choices, per_page: 20)
+    Exercise.find_by_muscle_group_and_equipment(muscle_group_list_choice, equipment_list_choice)
+    return_to_main_menu
+  end
+
 
 def edit_menu
     edit_menu_return = PROMPT.select("What would you like to do?") do |menu|
@@ -83,26 +113,31 @@ def add_new_exercise_menu
     new_exercise = PROMPT.collect do
       key(:name).ask('Name?')
       key(:description).ask('Description?')
-      key(:equipment_id).ask('Choose an equipment (type the number and return)
-          1. Barbell
-          2. Bench
-          3. Dumbbell
-          4. Gym Mat
-          5. Incline Bench
-          6. Kettlebell
-          7. none (bodyweight exercise)
-          8. Pull-up bar
-          9. Swiss Ball
-          10. SZ-bar', convert: :int)
-      key(:muscle_group_id).ask('Choose a muscle group (type the number and return)
-         1. Abs
-         2. Arms
-         3. Back
-         4. Calves
-         5. Chest
-         6. Legs
-         7. Shoulders', convert: :int)
     end
+    new_muscle_group = PROMPT.select('Choose Muscle Group') do |menu|
+      menu.choice 'Abs', 1
+      menu.choice 'Arms', 2
+      menu.choice 'Back', 3
+      menu.choice 'Calves', 4
+      menu.choice 'Chest', 5
+      menu.choice 'Legs', 6
+      menu.choice 'Shoulders', 7
+    end
+    
+    new_equipment = PROMPT.select('Choose Equipment') do |menu|
+      menu.choice 'Barbell', 1
+      menu.choice 'Bench', 2
+      menu.choice 'Dumbbell', 3
+      menu.choice 'Gym Mat', 4
+      menu.choice 'Incline Bench', 5
+      menu.choice 'Kettlebell', 6
+      menu.choice 'none (bodyweight exercise)', 7
+      menu.choice 'Pull-up Bar', 8
+      menu.choice 'Swiss Ball', 9
+      menu.choice 'SZ-bar', 10
+    end
+    new_exercise[:equipment_id] = new_equipment
+    new_exercise[:muscle_group_id] = new_muscle_group
     Exercise.add_exercise(new_exercise)
     puts "Exercise Added!"
     return_to_main_menu
