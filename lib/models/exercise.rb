@@ -52,4 +52,14 @@ class Exercise < ActiveRecord::Base
     self.find_by_name(name).update(description: new_description)
   end
 
+  def self.edit_by_equipment(exercise_name, equipment_name)
+    new_id = Equipment.find_by_name(equipment_name).id
+    self.find_by_name(exercise_name).update(equipment_id: new_id)
+  end
+
+  def self.edit_by_muscle_group(exercise_name, muscle_group_name)
+    new_id = MuscleGroup.find_by_name(muscle_group_name).id
+    self.find_by_name(exercise_name).update(muscle_group_id: new_id)
+  end
+
 end
