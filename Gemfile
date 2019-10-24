@@ -13,7 +13,7 @@ gem "tty-table"
 gem "tty-prompt"
 gem "colorize"
 gem "tty-box"
-# gem "artii"
+gem "strings"
 
 
 

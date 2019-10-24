@@ -2,6 +2,7 @@
 require 'pry'
 PROMPT = TTY::Prompt.new
 HEADER = (TTY::Box.frame "BAD BOYS OF THE NFL").red
+CLEAR = puts "\e[H\e[2J"
 
 def clear #Clears the terminal
     puts "\e[H\e[2J"
@@ -107,7 +108,6 @@ end
 def take_crime_input(arg)
 
     crime = Crime.all.find { |c| c.category.downcase.titleize == get_input(arg) }
-    # unless crime
     if crime
         return crime
     else 
@@ -162,7 +162,7 @@ def player_choices(input, player)
         puts "\n#{player.name} has been absolved of all his crimes!\n"
     else
         clear              
-        puts "Not an option\nPlease select something from the list:/n"
+        puts "Not an option\nPlease select something from the list:/n".yellow
         player_choices
     end
 end
@@ -189,8 +189,8 @@ end
             puts "\n"
         else 
             clear              
-            puts "Not an option\n"
-            crime_choices
+            puts "not an option".yellow
+            crime_choices(crime_instance)
         end
     end
 
@@ -198,4 +198,3 @@ end
         puts "(W)ho dun it?\n"
         puts "(D)ay most likely to happen...\n"
     end
-

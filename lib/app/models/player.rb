@@ -14,7 +14,6 @@ class Player < ActiveRecord::Base
         return_hash.each { |key, value| puts "#{key}... #{value} time(s)"}
         # returns a hash of crime keys with value of the frequency of each crime
     end
-
     def most_recent_arrest
         self.arrests.max { |a, b| a.date.to_datetime <=> b.date.to_datetime }
     end
@@ -36,12 +35,6 @@ class Player < ActiveRecord::Base
         (self.arrests.count).times do
             self.pardon
         end
-        puts "hello"
-        self.delete
-        # if self.arrests.count < 1
-        #     self.class.all.delete(self)
-        #     binding.pry
-        # end
     end
 
 
@@ -49,7 +42,6 @@ class Player < ActiveRecord::Base
         self.select { |player| player.arrests.count > 1 }
         # returns array of player objects
     end
-
     def snitch(day_of_week, date, description, crime)
         Arrest.create({
             day_of_week: day_of_week,

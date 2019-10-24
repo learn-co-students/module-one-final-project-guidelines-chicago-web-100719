@@ -107,6 +107,7 @@ DEPENDENCIES
   rest-client
   sinatra-activerecord
   sqlite3
+  strings
   tty
   tty-box
   tty-prompt
