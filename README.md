@@ -6,9 +6,9 @@ Pump You Up is a Ruby-based command line app designed primarily for [meatheads](
 
 After cloning this repository, run the following commands in your terminal:
 
-* \\bundle install\\
-* \\rake start\\
-* \\ruby bin/run.rb\\
+* ```bundle install```
+* ```rake start```
+* ```ruby bin/run.rb```
 
 ## Contributing Guide
 
