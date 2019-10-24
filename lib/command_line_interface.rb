@@ -83,26 +83,31 @@ def add_new_exercise_menu
     new_exercise = PROMPT.collect do
       key(:name).ask('Name?')
       key(:description).ask('Description?')
-      key(:equipment_id).ask('Choose an equipment (type the number and return)
-          1. Barbell
-          2. Bench
-          3. Dumbbell
-          4. Gym Mat
-          5. Incline Bench
-          6. Kettlebell
-          7. none (bodyweight exercise)
-          8. Pull-up bar
-          9. Swiss Ball
-          10. SZ-bar', convert: :int)
-      key(:muscle_group_id).ask('Choose a muscle group (type the number and return)
-         1. Abs
-         2. Arms
-         3. Back
-         4. Calves
-         5. Chest
-         6. Legs
-         7. Shoulders', convert: :int)
     end
+    new_muscle_group = PROMPT.select('Choose Muscle Group') do |menu|
+      menu.choice 'Abs', 1
+      menu.choice 'Arms', 2
+      menu.choice 'Back', 3
+      menu.choice 'Calves', 4
+      menu.choice 'Chest', 5
+      menu.choice 'Legs', 6
+      menu.choice 'Shoulders', 7
+    end
+    
+    new_equipment = PROMPT.select('Choose Equipment') do |menu|
+      menu.choice 'Barbell', 1
+      menu.choice 'Bench', 2
+      menu.choice 'Dumbbell', 3
+      menu.choice 'Gym Mat', 4
+      menu.choice 'Incline Bench', 5
+      menu.choice 'Kettlebell', 6
+      menu.choice 'none (bodyweight exercise)', 7
+      menu.choice 'Pull-up Bar', 8
+      menu.choice 'Swiss Ball', 9
+      menu.choice 'SZ-bar', 10
+    end
+    new_exercise[:equipment_id] = new_equipment
+    new_exercise[:muscle_group_id] = new_muscle_group
     Exercise.add_exercise(new_exercise)
     puts "Exercise Added!"
     return_to_main_menu
