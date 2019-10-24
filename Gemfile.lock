@@ -57,6 +57,11 @@ GEM
       activerecord (>= 3.2)
       sinatra (>= 1.0)
     sqlite3 (1.4.1)
+    strings (0.1.6)
+      strings-ansi (~> 0.1)
+      unicode-display_width (~> 1.5)
+      unicode_utils (~> 1.4)
+    strings-ansi (0.1.0)
     thread_safe (0.3.6)
     tilt (2.0.10)
     tty (0.1.0)
@@ -102,6 +107,7 @@ DEPENDENCIES
   rest-client
   sinatra-activerecord
   sqlite3
+  strings
   tty
   tty-box
   tty-prompt

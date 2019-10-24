@@ -28,14 +28,17 @@ def most_common_crimes
     puts "Please enter a day of the week:"
     day = get_input(gets.chomp)
     puts "\nMost common crimes for #{day}:\n"
-     puts Crime.most_common_crimes_by_day(day)
+    puts Crime.most_common_crimes_by_day(day)
 end
 
 def take_player_input
     player = nil
     until player do
         player = find_player(get_input(gets.chomp))
-        puts "not on the list. try again" unless player
+        unless player 
+            Player.name_table
+            puts "not on the list. try again".yellow 
+        end
     end
     player
 end
@@ -48,7 +51,7 @@ def take_crime_input(arg)
     else 
         clear
         puts Crime.category_table
-        puts "not on the list\ntry again:"
+        puts "not on the list\ntry again:".yellow
         take_crime_input(gets.chomp)
     end
 end
@@ -141,6 +144,7 @@ def player_choices(input, player)
         player.pardon_all
         puts "\n#{player.name} has been absolved of all his crimes!\n"
     end
+end
 
     def crime_choices(crime_instance)
         menu_for_crime
@@ -164,8 +168,8 @@ def player_choices(input, player)
             puts "\n"
         else 
             clear              
-            puts "not an option"
-            crime_choices
+            puts "not an option".yellow
+            crime_choices(crime_instance)
         end
     end
 
