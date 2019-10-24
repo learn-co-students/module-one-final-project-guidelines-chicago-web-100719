@@ -50,6 +50,7 @@ def choose_exercise_menu
     menu.choice 'Find exercise by Muscle Group and Equipment', 2
     menu.choice 'Find All Exercises By Muscle Group', 3
     menu.choice 'Find All Exercises By Equipment', 4
+    menu.choice 'Return to Main Menu', 5
     end
   if choose_exercise_menu_choice == 1
     puts CLEAR
@@ -67,6 +68,8 @@ def choose_exercise_menu
     puts CLEAR
     header
     equipment_menu
+  elsif choose_exercise_menu_choice == 5
+    main_menu
   end
 end
 
@@ -92,6 +95,7 @@ def edit_menu
     menu.choice 'Add New Exercise', 1
     menu.choice 'Edit Exercise', 2
     menu.choice 'Delete Exercise', 3
+    menu.choice 'Return to Main Menu', 4
   end
   if edit_menu_return == 1
     puts CLEAR
@@ -105,6 +109,8 @@ def edit_menu
     puts CLEAR
     header
     delete_exercise_menu
+  elsif edit_menu_return == 4
+    main_menu
   end
 end
 
@@ -139,7 +145,10 @@ def add_new_exercise_menu
     new_exercise[:equipment_id] = new_equipment
     new_exercise[:muscle_group_id] = new_muscle_group
     Exercise.add_exercise(new_exercise)
-    puts "Exercise Added!"
+    font = TTY::Font.new(:doom)
+    pastel = Pastel.new
+    puts pastel.red(font.write("EXERCISE"))
+    puts pastel.red(font.write("ADDED"))
     return_to_main_menu
 end
 
@@ -147,20 +156,45 @@ def edit_exercise_menu
   edit_exercise_menu_choice = PROMPT.select("Choose an edit option") do |menu|
     menu.choice 'Edit Name', 1
     menu.choice 'Edit Description', 2
+    menu.choice 'Edit Equipment Type', 3
+    menu.choice 'Edit Muscle Group', 4
+    menu.choice 'Return to Main Menu', 5
   end
   if edit_exercise_menu_choice == 1
+    puts CLEAR
+    header
     edit_name
   elsif edit_exercise_menu_choice == 2
+    puts CLEAR
+    header
     edit_description
+  elsif edit_exercise_menu_choice == 3
+    puts CLEAR
+    header
+    edit_muscle_group
+  elsif edit_exercise_menu_choice == 4
+    puts CLEAR
+    header
+    edit_equipment
+  elsif edit_exercise_menu_choice == 5
+  main_menu
   end
 end
 
+def exercise_updated
+  font = TTY::Font.new(:doom)
+  pastel = Pastel.new
+  puts pastel.red(font.write("EXERCISE"))
+  puts pastel.red(font.write("UPDATED"))
+end
 
 def edit_name
   choices = Exercise.display_all_names
   edit_name_choice = PROMPT.select("Choose an exercise to edit", choices, per_page: 30)
   new_name = PROMPT.ask('What is the new name?')
   Exercise.edit_by_name(edit_name_choice, new_name)
+  exercise_updated
+  return_to_main_menu
 end
 
 def edit_description
@@ -168,12 +202,39 @@ def edit_description
   edit_description_choice = PROMPT.select("Choose an exercise to edit", choices, per_page: 30)
   new_description = PROMPT.ask('What is the new description?')
   Exercise.edit_by_description(edit_description_choice, new_description)
+  exercise_updated
+  return_to_main_menu
 end
+
+def edit_muscle_group
+  exercise_choices = Exercise.display_all_names
+  edit_muscle_group_choice = PROMPT.select("Choose an exercise to edit", exercise_choices, per_page: 30)
+  new_muscle_group_choices = MuscleGroup.display_all_names
+  new_muscle_group = PROMPT.select("Choose a new muscle group", new_muscle_group_choices, per_page: 7)
+  Exercise.edit_by_muscle_group(edit_muscle_group_choice, new_muscle_group)
+  exercise_updated
+  return_to_main_menu
+end
+
+def edit_equipment
+  exercise_choices = Exercise.display_all_names
+  edit_equipment_choice = PROMPT.select("Choose an exercise to edit", exercise_choices, per_page: 30)
+  new_equipment_choices = Equipment.display_all_names
+  new_equipment = PROMPT.select("Choose a new equipment type", new_equipment_choices, per_page: 10)
+  Exercise.edit_by_equipment(edit_equipment_choice, new_equipment)
+  exercise_updated
+  return_to_main_menu
+end
+
 
 def delete_exercise_menu
     choices = Exercise.display_all_names
     delete_exercise_choice = PROMPT.select("Choose an exercise to delete", choices, per_page: 30)
     Exercise.delete_exercise(delete_exercise_choice)
+    font = TTY::Font.new(:doom)
+    pastel = Pastel.new
+    puts pastel.red(font.write("EXERCISE"))
+    puts pastel.red(font.write("DELETED"))
     return_to_main_menu
 end
 
