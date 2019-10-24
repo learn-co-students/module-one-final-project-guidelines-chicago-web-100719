@@ -29,11 +29,18 @@ class Player < ActiveRecord::Base
         end
     end
 
+    def pardon_all
+        self.arrests.each { |arrest| self.arrests.delete(arrest) }
+        self.class.all.delete(self)
+        Crime.all.each {|c| Crime.all.delete(c) if c.arrests.count < 1 }
+    end
+
+
     def self.repeat_offenders
         self.select { |player| player.arrests.count > 1 }
         # returns array of player objects
     end
-    
+
     def snitch(day_of_week, date, description, crime)
         Arrest.create({
             day_of_week: day_of_week,
@@ -60,7 +67,8 @@ class Player < ActiveRecord::Base
     end
 
     def pardon_all
-        self.arrests.each { |arrest| arrest.destroy }
+        self.arrests.each { |arrest| self.arrests.delete(arrest) }
     end
+
 
 end

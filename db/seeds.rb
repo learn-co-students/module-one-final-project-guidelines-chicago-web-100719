@@ -8,7 +8,7 @@ seed_array.each do |arrest|
         date: arrest['Date'],
         description: arrest['Description'],
         crime_id: Crime.find_or_create_by(category: arrest['Category']).id,
-        player_id: Player.find_or_create_by(name: arrest['Name'], position: arrest['Position_name']).id
+        player_id: Player.find_or_create_by(name: arrest['Name'].gsub("'", ""), position: arrest['Position_name']).id
     })
 end
 

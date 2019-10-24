@@ -1,39 +1,27 @@
 require_relative '../config/environment.rb'
 require 'pry'
+require 'tty-prompt'
+puts HEADER
 welcome
 run = true
 
 while run
-    players_or_crimes
-    input = get_input(gets.chomp)
+    new_input = PROMPT.ask(players_or_crimes, echo:false)
+    input = get_input(new_input)
+    # input = get_input(gets.chomp)
     case input
     when 1
         players_option
-        player = find_player(get_input(gets.chomp))
+        player = Player.find_by_name(get_input(gets.chomp))
         #apostrophes still don't work
-        #put player table into players_option
+        puts "\nHere Are #{player.name}'s Arrests:"
         view_player_arrests(player)
-        menu_for_player
-        select = get_input(gets.chomp)
-        case select
-        when "P","Pardon"
-            player.pardon
-            view_player_arrests(player)
-        when "S","Snitch"
-            snitch_on_player(player)
-        when "N", "New Dad"
-            player.new_dad
-            puts "Congratulations on procreating, #{player.name}!"
-        when 1..100
-            googler(player, select)
-        end
-
+        menu_for_player(player)
     when 2
         puts "Crime categories included in the NFL crime database:\n\n"
         puts Crime.category_table
         puts "choose crime:"
         crime = get_input(gets.chomp)
-        # crime_instance = Crime.find_by(category: crime)
         crime_instance = Crime.all.find { |c| c.category.downcase.titleize == crime }
         puts "(w)ho dun it?"
         puts "(d)ay most likely to happen..."
