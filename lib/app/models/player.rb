@@ -53,7 +53,7 @@ class Player < ActiveRecord::Base
         end
 
         table = TTY::Table.new player_pairs
-        puts table.render(:unicode)
+        puts table.render(:unicode, padding: [0.5, 1, 2, 1])
     end
 
     def pardon_all

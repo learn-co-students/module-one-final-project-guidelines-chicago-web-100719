@@ -34,6 +34,10 @@ def which_day_of_the_week
 end
 
 def view_player_arrests(player)
+    # until player do
+    #     puts "not on the list. try again: "
+    #     take_player_input
+    
     n = 0
     alphabet = [*'A'..'Z']
         #J'Marcus Webb doesn't work
@@ -42,7 +46,29 @@ def view_player_arrests(player)
             puts "#{alphabet[n]}.Arrested for #{arr.crime.category} on #{arr.date}"
             n += 1
         end
+end
+
+def take_player_input
+    player = nil
+    until player do
+        player = find_player(get_input(gets.chomp))
+        puts "not on the list. try again" unless player
     end
+    player
+end
+
+def take_crime_input(arg)
+    # crime = nil
+
+    crime = Crime.all.find { |c| c.category.downcase.titleize == get_input(arg) }
+    # unless crime
+    if crime
+        return crime
+    else 
+        puts "not on the list\ntry again:"
+        take_crime_input(gets.chomp)
+    end
+end
 
     def players_or_crimes
         puts table = "----------------------------------------------------"
@@ -52,7 +78,8 @@ def view_player_arrests(player)
 
     def players_option
         puts "Bears and Falcons players guilty of committing crimes:\n\n"
-        puts Player.all.map{|p| p.name}
+        Player.name_table
+        # puts Player.all.map{|p| p.name}
         #substitute Player.names later
         puts "Enter a player name to view arrests or press '2' to view all crimes:"
     end
@@ -61,3 +88,29 @@ def view_player_arrests(player)
         puts "Please select one of the following:"
         puts ["(P)ardon", "(S)nitch", "(N)ew Dad"]
     end
+
+    def crime_choices(crime_instance)
+        menu_for_crime
+        choice = get_input(gets.chomp)
+        case choice
+        when 'W'
+            crime_instance.who_dun_it
+        when 'D'
+            # crime_instance.occurs_most_often_on_day
+            arrests2 = crime_instance.arrests.map { |a| a.day_of_week }
+            puts "\n"
+            puts arrests2.max_by { |a| arrests2.count(a) }
+            puts "\n"
+        else               
+            puts "not an option"
+            crime_choices
+        end
+    end
+
+    def menu_for_crime
+        puts "(W)ho dun it?"
+        puts "(D)ay most likely to happen..."
+    end
+    # def find_crime
+    #     crime_instance = Crime.all.find { |c| c.category.downcase.titleize == crime }
+    # end
