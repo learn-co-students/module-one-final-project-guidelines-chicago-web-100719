@@ -43,6 +43,7 @@ def main_menu
     header
     equipment_menu
   elsif main_menu_return == 5
+    puts CLEAR
     exit
   end
 end
