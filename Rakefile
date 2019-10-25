@@ -9,7 +9,7 @@ end
 
 desc 'migrates, seeds, starts app OR refreshes database'
 task :start_up do
-  if !Player.all
+  if !File.exists? 'db/development.db'
     puts "Migrating..."
     Rake::Task['db:migrate'].invoke
     puts "Seeding..."
