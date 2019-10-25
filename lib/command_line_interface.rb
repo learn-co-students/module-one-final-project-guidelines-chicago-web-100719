@@ -1,7 +1,5 @@
 require "tty-prompt"
 require "tty-font"
-require 'io/console'                                                                                                       
-
 
 PROMPT = TTY::Prompt.new
 CLEAR = "\e[H\e[2J"
@@ -147,6 +145,7 @@ def add_new_exercise_menu
   new_exercise[:equipment_id] = new_equipment
   new_exercise[:muscle_group_id] = new_muscle_group
   Exercise.add_exercise(new_exercise)
+  
   font = TTY::Font.new(:doom)
   pastel = Pastel.new
   puts pastel.red(font.write("EXERCISE"))
@@ -173,11 +172,11 @@ def edit_exercise_menu
   elsif edit_exercise_menu_choice == 3
     puts CLEAR
     header
-    edit_muscle_group
+    edit_equipment
   elsif edit_exercise_menu_choice == 4
     puts CLEAR
     header
-    edit_equipment
+    edit_muscle_group
   elsif edit_exercise_menu_choice == 5
   main_menu
   end

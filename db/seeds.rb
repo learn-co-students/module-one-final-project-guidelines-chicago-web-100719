@@ -18,6 +18,8 @@ Exercise.create(name: "Deadlift", description: "Stand firmly, with feet wide apa
 
 Exercise.create(name: "Chin Up", description: "Pull up with hand grips reversed.", equipment_id: 8, muscle_group_id: 3)
 
+Exercise.create(name: "Pull Up", description: "Pull up with hand grips forward.", equipment_id: 8, muscle_group_id: 3)
+
 Exercise.create(name: "Incline Bench Press", description: "Hold two dumbbells or a barbell while laying down on an incline bench. Hold the weights next to the chest (if using dumbbells) or the eyes (if using a barbell) and push up until the arms are stretched. Then slowly let the weight down.", equipment_id: 5, muscle_group_id: 5)
 
 Exercise.create(name: "Fly with Dumbbells", description: "Take two dumbbells and lay back on a bench, make sure the feet are firmly on the ground and your back is not arched. The arms are stretched in front of you, about shoulder wide. Bend the arms a bit and slowly let them down with a half-circle movement to your sides. Without changing the angle of the elbow, bring the dumbbells back up and repeat.", equipment_id: 3, muscle_group_id: 5)
