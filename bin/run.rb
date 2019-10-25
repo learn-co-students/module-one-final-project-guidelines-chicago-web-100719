@@ -31,5 +31,4 @@ else
     run = false
 end
 end
-CLEAR
 
