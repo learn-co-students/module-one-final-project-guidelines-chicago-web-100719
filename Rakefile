@@ -7,14 +7,17 @@ task :console do
   Pry.start
 end
 
-desc 'migrates, seeds, starts app OR refreshes database'
+desc 'migrates, seeds, starts app'
 task :start_up do
-  if !File.exists? 'db/development.db'
-    puts "Migrating..."
-    Rake::Task['db:migrate'].invoke
-    puts "Seeding..."
-    Rake::Task['db:seed'].invoke
-  else
+  puts "Migrating..."
+  Rake::Task['db:migrate'].invoke
+  puts "Seeding..."
+  Rake::Task['db:seed'].invoke
+  ruby "bin/run.rb"
+end
+
+desc 'refreshes database to original state, runs program'
+  task :refresh do
     5.times do
       Rake::Task["db:rollback"]
       end
@@ -35,4 +38,5 @@ task :start_up do
   end
   ruby "bin/run.rb"
 end
+
 
