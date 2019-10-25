@@ -18,7 +18,8 @@ If this is your first time running the program:
 If you've run this program before:
     1. Make sure you're in the correct directory
     2. Run 'ruby bin/run.rb' to start the program
-<!-- NOTE: You can run 'rake start_up' at any time from your terminal to clear and re-seed the database with the original data -->
+<!-- NOTE: You can run 'rake refresh' at any time from your terminal to clear and re-seed the database with the original data -->
+
 
 
 
