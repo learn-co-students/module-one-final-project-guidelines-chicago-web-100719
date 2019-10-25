@@ -41,11 +41,19 @@ class Exercise < ActiveRecord::Base
     exercises.map { |exercise| exercise.display_name_with_description }
   end
 
+  def self.exercise_matching_condition(exercises)
+    if exercises.empty?
+      puts "No exercises found"
+    else
+      exercises.map { |exercise| exercise.display_name_with_description }
+    end
+  end
+
   def self.find_by_muscle_group_and_equipment(muscle_group_name, equipment_name)
     muscle_group = MuscleGroup.find_by_name(muscle_group_name)
     equipment = Equipment.find_by_name(equipment_name)
     exercises = self.all.select { |exercise| (exercise.muscle_group_id == muscle_group.id) && (exercise.equipment_id == equipment.id) }
-    exercises.map { |exercise| exercise.display_name_with_description }
+    exercise_matching_condition(exercises)
   end
 
   def self.edit_by_name(name, new_name)

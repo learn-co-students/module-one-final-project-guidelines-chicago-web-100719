@@ -21,12 +21,12 @@ def return_to_main_menu
 end  
 
 def main_menu
-    puts CLEAR
-    header
-    main_menu_choice = PROMPT.select("What would you like to do?") do |menu|
-    menu.choice 'Choose Exercise', 1
-    menu.choice 'Edit Exercises', 2
-    menu.choice 'Exit', 3
+  puts CLEAR
+  header
+  main_menu_choice = PROMPT.select("What would you like to do?") do |menu|
+  menu.choice 'Choose Exercise', 1
+  menu.choice 'Edit Exercises', 2
+  menu.choice 'Exit', 3
   end
   if main_menu_choice == 1
     puts CLEAR
@@ -45,13 +45,13 @@ end
 def choose_exercise_menu
   puts CLEAR
   header
-    choose_exercise_menu_choice = PROMPT.select("What would you like to do?") do |menu|
+  choose_exercise_menu_choice = PROMPT.select("What would you like to do?") do |menu|
     menu.choice 'View All Exercises', 1
     menu.choice 'Find Exercise by Muscle Group and Equipment', 2
     menu.choice 'Find All Exercises by Muscle Group', 3
     menu.choice 'Find All Exercises by Equipment', 4
     menu.choice 'Return to Main Menu', 5
-    end
+  end
   if choose_exercise_menu_choice == 1
     puts CLEAR
     header
@@ -81,21 +81,21 @@ def choose_from_exercise_list
 end
 
 def match_muscle_group_and_equipment
-    equipment_choices = Equipment.display_all_names
-    muscle_group_choices = MuscleGroup.display_all_names
-    equipment_list_choice = PROMPT.select("Choose an Equipment", equipment_choices, per_page: 20)
-    muscle_group_list_choice = PROMPT.select("Choose a Muscle Group", muscle_group_choices, per_page: 20)
-    Exercise.find_by_muscle_group_and_equipment(muscle_group_list_choice, equipment_list_choice)
-    return_to_main_menu
-  end
+  equipment_choices = Equipment.display_all_names
+  muscle_group_choices = MuscleGroup.display_all_names
+  equipment_list_choice = PROMPT.select("Choose an Equipment", equipment_choices, per_page: 20)
+  muscle_group_list_choice = PROMPT.select("Choose a Muscle Group", muscle_group_choices, per_page: 20)
+  Exercise.find_by_muscle_group_and_equipment(muscle_group_list_choice, equipment_list_choice)
+  return_to_main_menu
+end
 
 
 def edit_menu
-    edit_menu_return = PROMPT.select("What would you like to do?") do |menu|
-    menu.choice 'Add New Exercise', 1
-    menu.choice 'Edit Exercise', 2
-    menu.choice 'Delete Exercise', 3
-    menu.choice 'Return to Main Menu', 4
+  edit_menu_return = PROMPT.select("What would you like to do?") do |menu|
+  menu.choice 'Add New Exercise', 1
+  menu.choice 'Edit Exercise', 2
+  menu.choice 'Delete Exercise', 3
+  menu.choice 'Return to Main Menu', 4
   end
   if edit_menu_return == 1
     puts CLEAR
@@ -116,40 +116,42 @@ end
 
 
 def add_new_exercise_menu
-    new_exercise = PROMPT.collect do
-      key(:name).ask('Name?')
-      key(:description).ask('Description?')
-    end
-    new_muscle_group = PROMPT.select('Choose Muscle Group') do |menu|
-      menu.choice 'Abs', 1
-      menu.choice 'Arms', 2
-      menu.choice 'Back', 3
-      menu.choice 'Calves', 4
-      menu.choice 'Chest', 5
-      menu.choice 'Legs', 6
-      menu.choice 'Shoulders', 7
-    end
+  new_exercise = PROMPT.collect do
+    key(:name).ask('Name?')
+    key(:description).ask('Description?')
+  end
+
+  new_muscle_group = PROMPT.select('Choose Muscle Group') do |menu|
+    menu.choice 'Abs', 1
+    menu.choice 'Arms', 2
+    menu.choice 'Back', 3
+    menu.choice 'Calves', 4
+    menu.choice 'Chest', 5
+    menu.choice 'Legs', 6
+    menu.choice 'Shoulders', 7
+  end
     
-    new_equipment = PROMPT.select('Choose Equipment') do |menu|
-      menu.choice 'Barbell', 1
-      menu.choice 'Bench', 2
-      menu.choice 'Dumbbell', 3
-      menu.choice 'Gym Mat', 4
-      menu.choice 'Incline Bench', 5
-      menu.choice 'Kettlebell', 6
-      menu.choice 'none (bodyweight exercise)', 7
-      menu.choice 'Pull-up Bar', 8
-      menu.choice 'Swiss Ball', 9
-      menu.choice 'SZ-bar', 10
-    end
-    new_exercise[:equipment_id] = new_equipment
-    new_exercise[:muscle_group_id] = new_muscle_group
-    Exercise.add_exercise(new_exercise)
-    font = TTY::Font.new(:doom)
-    pastel = Pastel.new
-    puts pastel.red(font.write("EXERCISE"))
-    puts pastel.red(font.write("ADDED"))
-    return_to_main_menu
+  new_equipment = PROMPT.select('Choose Equipment') do |menu|
+    menu.choice 'Barbell', 1
+    menu.choice 'Bench', 2
+    menu.choice 'Dumbbell', 3
+    menu.choice 'Gym Mat', 4
+    menu.choice 'Incline Bench', 5
+    menu.choice 'Kettlebell', 6
+    menu.choice 'none (bodyweight exercise)', 7
+    menu.choice 'Pull-up Bar', 8
+    menu.choice 'Swiss Ball', 9
+    menu.choice 'SZ-bar', 10
+  end
+  
+  new_exercise[:equipment_id] = new_equipment
+  new_exercise[:muscle_group_id] = new_muscle_group
+  Exercise.add_exercise(new_exercise)
+  font = TTY::Font.new(:doom)
+  pastel = Pastel.new
+  puts pastel.red(font.write("EXERCISE"))
+  puts pastel.red(font.write("ADDED"))
+  return_to_main_menu
 end
 
 def edit_exercise_menu
@@ -226,23 +228,22 @@ def edit_equipment
   return_to_main_menu
 end
 
-
 def delete_exercise_menu
-    choices = Exercise.display_all_names
-    delete_exercise_choice = PROMPT.select("Choose an exercise to delete", choices, per_page: 30)
-    Exercise.delete_exercise(delete_exercise_choice)
-    font = TTY::Font.new(:doom)
-    pastel = Pastel.new
-    puts pastel.red(font.write("EXERCISE"))
-    puts pastel.red(font.write("DELETED"))
-    return_to_main_menu
+  choices = Exercise.display_all_names
+  delete_exercise_choice = PROMPT.select("Choose an exercise to delete", choices, per_page: 30)
+  Exercise.delete_exercise(delete_exercise_choice)
+  font = TTY::Font.new(:doom)
+  pastel = Pastel.new
+  puts pastel.red(font.write("EXERCISE"))
+  puts pastel.red(font.write("DELETED"))
+  return_to_main_menu
 end
 
 def muscle_group_menu
-    choices = MuscleGroup.display_all_names
-    muscle_group_menu_choice = PROMPT.select("Choose a muscle group", choices, per_page: 7)
-    Exercise.find_by_muscle_group(muscle_group_menu_choice)
-    return_to_main_menu
+  choices = MuscleGroup.display_all_names
+  muscle_group_menu_choice = PROMPT.select("Choose a muscle group", choices, per_page: 7)
+  Exercise.find_by_muscle_group(muscle_group_menu_choice)
+  return_to_main_menu
 end
 
 def equipment_menu
