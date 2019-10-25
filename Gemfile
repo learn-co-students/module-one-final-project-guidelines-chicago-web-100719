@@ -9,3 +9,4 @@ gem "activerecord", "~> 5.2"
 gem 'rest-client'
 gem 'tty-prompt'
 gem 'tty-font'
+gem 'io/console'
