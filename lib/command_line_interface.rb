@@ -121,7 +121,7 @@ def add_new_exercise_menu
     key(:description).ask('Description?')
   end
 
-  new_muscle_group = PROMPT.select('Choose Muscle Group') do |menu|
+  new_muscle_group = PROMPT.select('Choose Muscle Group', per_page: 7) do |menu|
     menu.choice 'Abs', 1
     menu.choice 'Arms', 2
     menu.choice 'Back', 3
@@ -131,7 +131,7 @@ def add_new_exercise_menu
     menu.choice 'Shoulders', 7
   end
     
-  new_equipment = PROMPT.select('Choose Equipment') do |menu|
+  new_equipment = PROMPT.select('Choose Equipment', per_page: 10) do |menu|
     menu.choice 'Barbell', 1
     menu.choice 'Bench', 2
     menu.choice 'Dumbbell', 3
