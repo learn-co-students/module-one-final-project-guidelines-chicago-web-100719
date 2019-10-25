@@ -1,41 +1,34 @@
 require_relative '../config/environment.rb'
+CLEAR
 welcome
 run = true
 
 while run
-    players_or_crimes
-    input = get_input(gets.chomp)
+    input = get_input(PROMPT.ask(players_or_crimes, echo:true))
     case input
     when 1
-        players_option
-        player = find_player(get_input(gets.chomp))
-        #put player table into players_option
+        display_name_table  
+        player = Player.find_or_create_by(name: get_input(gets.chomp))
         view_player_arrests(player)
-        menu_for_player
-        select = get_input(gets.chomp)
-        case select
-        when "P" || "Pardon"
-            player.pardon
-            view_player_arrests(player)
-        end
+        menu_for_player(player)
     when 2
-        puts "Crime categories included in the NFL crime database:\n\n"
-        puts Crime.category_table
+        display_crime_table
         puts "choose crime:"
-        crime = get_input(gets.chomp)
-        # crime_instance = Crime.find_by(category: crime)
-        crime_instance = Crime.all.find { |c| c.category.downcase.titleize == crime }
-        puts "(w)ho dun it?"
-        puts "(d)ay most likely to happen..."
-        choice = get_input(gets.chomp)
-        case choice
-        when 'W'
-            crime_instance.who_dun_it
-        when 'D'
-            crime_instance.occurs_most_often_on_day
-        end
+        crime = take_crime_input(gets.chomp)
+        puts crime.category
+        crime_choices(crime)
+    else
+        puts "Wrong input. Please enter 1 or 2.\n\n".yellow
+        next
     end
-puts "do you want to go again?"
-run = false unless get_input(gets.strip) == 'Yes'
+    puts "\n\n\nEnter 'Yes' or 'Y' to go again...".red
+    puts "Enter anything else to exit".red
+    ans = get_input(gets.chomp)
+if ans == "Yes" || ans == "Y"
+    run = true
+else 
+    sign_off_message
+    run = false
+end
 end
 

@@ -14,6 +14,7 @@ GEM
       tzinfo (~> 1.1)
     arel (9.0.0)
     coderay (1.1.2)
+    colorize (0.8.1)
     concurrent-ruby (1.1.5)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -41,6 +42,7 @@ GEM
     rack (2.0.7)
     rack-protection (2.0.7)
       rack
+    rake (13.0.0)
     require_all (3.0.0)
     rest-client (2.1.0)
       http-accept (>= 1.7.0, < 2.0)
@@ -64,7 +66,20 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     tty (0.1.0)
+    tty-box (0.5.0)
+      pastel (~> 0.7.2)
+      strings (~> 0.1.6)
+      tty-cursor (~> 0.7)
     tty-color (0.5.0)
+    tty-cursor (0.7.0)
+    tty-prompt (0.19.0)
+      necromancer (~> 0.5.0)
+      pastel (~> 0.7.0)
+      tty-reader (~> 0.6.0)
+    tty-reader (0.6.0)
+      tty-cursor (~> 0.7)
+      tty-screen (~> 0.7)
+      wisper (~> 2.0.0)
     tty-screen (0.7.0)
     tty-table (0.11.0)
       equatable (~> 0.6)
@@ -79,19 +94,25 @@ GEM
     unf_ext (0.0.7.6)
     unicode-display_width (1.6.0)
     unicode_utils (1.4.0)
+    wisper (2.0.1)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
   activerecord (~> 5.2)
+  colorize
   json
   pry
+  rake
   require_all
   rest-client
   sinatra-activerecord
   sqlite3
+  strings
   tty
+  tty-box
+  tty-prompt
   tty-table
 
 BUNDLED WITH

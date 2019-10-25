@@ -10,6 +10,11 @@ gem "rest-client"
 gem "json"
 gem "tty"
 gem "tty-table"
+gem "tty-prompt"
+gem "colorize"
+gem "tty-box"
+gem "strings"
+gem "rake"
 
 
 

@@ -2,9 +2,11 @@ require 'bundler'
 Bundler.require
 require 'tty'
 require 'tty-table'
-# require 'rake'
+require 'colorize'
+require 'tty-prompt'
+require 'pry'
+require 'rake'
 
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: 'db/development.db')
 ActiveRecord::Base.logger = nil
 require_all 'lib'
-require 'tty'
