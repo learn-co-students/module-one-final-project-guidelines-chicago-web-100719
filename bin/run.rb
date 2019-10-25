@@ -1,6 +1,5 @@
 require_relative '../config/environment.rb'
-clear
-# puts HEADER
+CLEAR
 welcome
 run = true
 
@@ -8,23 +7,22 @@ while run
     input = get_input(PROMPT.ask(players_or_crimes, echo:true))
     case input
     when 1
-        players_option
-        player = take_player_input
-        puts "\nHere Are #{player.name}'s Arrests:\n"
+        display_name_table  
+        player = Player.find_or_create_by(name: get_input(gets.chomp))
         view_player_arrests(player)
         menu_for_player(player)
     when 2
-        puts "Crime categories included in the NFL crime database:\n\n"
-        puts Crime.category_table
+        display_crime_table
         puts "choose crime:"
         crime = take_crime_input(gets.chomp)
         puts crime.category
         crime_choices(crime)
     else
-        puts "Wrong input. Must be 1 or 2. Now you have to start over.".yellow
+        puts "Wrong input. Please enter 1 or 2.\n\n".yellow
+        next
     end
-    puts "Enter 'Yes' or 'Y' to go again..."
-    puts "Enter anyting else to exit"
+    puts "\n\n\nEnter 'Yes' or 'Y' to go again...".red
+    puts "Enter anything else to exit".red
     ans = get_input(gets.chomp)
 if ans == "Yes" || ans == "Y"
     run = true

@@ -8,8 +8,7 @@ class Crime < ActiveRecord::Base
         arrests.map{|a| a.crime.category}
     end
 
-    def self.most_common_crimes_by_day(day_of_week)
-        # returns the day of the week that this crime is most often committed
+    def self.most_common_crimes_by_day(day_of_week) # returns the day of the week that this crime is most often committed
         arrests = self.crimes_by_day(day_of_week)
         arrests.sort_by{|a| arrests.count(a)}[0..4].uniq
     end

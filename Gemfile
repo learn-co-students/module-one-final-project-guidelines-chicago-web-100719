@@ -14,6 +14,7 @@ gem "tty-prompt"
 gem "colorize"
 gem "tty-box"
 gem "strings"
+gem "rake"
 
 
 
